@@ -1,7 +1,7 @@
 function Get-Projects {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
-        [parameter(Position = 0)]
+        [parameter(Position = 0, Mandatory = $true)]
         [string]$OctopusBaseURL
     )
 
@@ -24,9 +24,9 @@ function Get-Projects {
 
         try {
             $obj = [pscustomobject] @{
-                'ProjectName' = $convert.Items.Name
-                'ID' = $convert.Items.id
-                'Deployment_Process_ID'  = $convert.Items.DeploymentProcessId
+                'ProjectName'           = $convert.Items.Name
+                'ID'                    = $convert.Items.id
+                'Deployment_Process_ID' = $convert.Items.DeploymentProcessId
             }
 
             $obj | fl

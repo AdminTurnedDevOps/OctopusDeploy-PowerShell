@@ -1,7 +1,7 @@
 function Get-Users {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
-        [parameter(Position = 0)]
+        [parameter(Position = 0, Mandatory = $true)]
         [string]$OctopusBaseURL
     )
 

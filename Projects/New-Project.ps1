@@ -1,10 +1,10 @@
 function New-Project {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
-        [parameter(Position = 0)]
+        [parameter(Position = 0, Mandatory = $true)]
         [string]$OctopusBaseURL,
 
-        [parameter(Position = 1)]
+        [parameter(Position = 1, Mandatory = $true)]
         [string]$projectName
     )
 
