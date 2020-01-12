@@ -1,8 +1,8 @@
-function Get-Users {
+function Get-Projects {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
         [parameter(Position = 0)]
-        [string]$OctopusBaseURL
+        [string]$OctopusBaseURL = "http://localhost:8081/api"
     )
 
     begin { }
@@ -14,8 +14,8 @@ function Get-Users {
             $header = @{ "X-Octopus-ApiKey" = $octopusAPIKey | ConvertFrom-SecureString -AsPlainText }
             $list = @()
 
-            $listSpaces = $(Invoke-WebRequest -Method GET -Uri $OctopusBaseURL/users -Headers $header).content
-            $convert = $listSpaces | ConvertFrom-Json
+            $listProjects = $(Invoke-WebRequest -Method GET -Uri $OctopusBaseURL/projects -Headers $header).content
+            $convert = $listProjects | ConvertFrom-Json
         }
 
         catch {
@@ -25,8 +25,9 @@ function Get-Users {
 
         try {
             $obj = [pscustomobject] @{
+                'ProjectName' = $convert.Items.Name
                 'ID' = $convert.Items.id
-                'Username'  = $convert.Items.Username
+                'Deployment_Process_ID'  = $convert.Items.DeploymentProcessId
             }
 
             $obj | fl
