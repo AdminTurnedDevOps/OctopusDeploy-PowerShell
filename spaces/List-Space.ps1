@@ -1,4 +1,4 @@
-function List-OctopusSpace {
+function Get-OctopusSpace {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
         [parameter(Position = 0)]
