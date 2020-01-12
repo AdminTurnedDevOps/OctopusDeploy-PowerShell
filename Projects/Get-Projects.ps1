@@ -2,7 +2,7 @@ function Get-Projects {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
         [parameter(Position = 0)]
-        [string]$OctopusBaseURL = "http://localhost:8081/api"
+        [string]$OctopusBaseURL
     )
 
     begin { }
