@@ -1,4 +1,4 @@
-function Get-OctopusSpace {
+function Get-Users {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
         [parameter(Position = 0)]
@@ -14,7 +14,7 @@ function Get-OctopusSpace {
             $header = @{ "X-Octopus-ApiKey" = $octopusAPIKey | ConvertFrom-SecureString -AsPlainText }
             $list = @()
 
-            $listSpaces = $(Invoke-WebRequest -Method GET -Uri $OctopusBaseURL/spaces -Headers $header).content
+            $listSpaces = $(Invoke-WebRequest -Method GET -Uri $OctopusBaseURL/users -Headers $header).content
             $convert = $listSpaces | ConvertFrom-Json
         }
 
@@ -25,8 +25,8 @@ function Get-OctopusSpace {
 
         try {
             $obj = [pscustomobject] @{
-                'Spaces' = $convert.Items.Id
-                'Links'  = $convert.Links
+                'ID' = $convert.Items.id
+                'Username'  = $convert.Items.Username
             }
 
             $obj | fl
@@ -35,6 +35,6 @@ function Get-OctopusSpace {
             $PSCmdlet.ThrowTerminatingError($_)
         }
     }
-    end{}
+    end { }
 }
 
