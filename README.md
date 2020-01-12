@@ -1,5 +1,5 @@
 # OctopusDeploy-PowerShell
-OctopusDeploy-PowerShell is a PowerShell module wrapped around Octopus Deploy.
+OctopusDeploy-PowerShell is a PowerShell module wrapped around the Octopus Deploy REST API.
 
 # Creator
 Michael Levan
