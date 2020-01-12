@@ -12,7 +12,6 @@ function Get-Users {
             $headers = @{ "X-Octopus-ApiKey" = $octopusAPIKey }
 
             $header = @{ "X-Octopus-ApiKey" = $octopusAPIKey | ConvertFrom-SecureString -AsPlainText }
-            $list = @()
 
             $listSpaces = $(Invoke-WebRequest -Method GET -Uri $OctopusBaseURL/users -Headers $header).content
             $convert = $listSpaces | ConvertFrom-Json
