@@ -12,7 +12,6 @@ function Get-Space {
             $headers = @{ "X-Octopus-ApiKey" = $octopusAPIKey }
 
             $header = @{ "X-Octopus-ApiKey" = $octopusAPIKey | ConvertFrom-SecureString -AsPlainText }
-            $list = @()
 
             $listSpaces = $(Invoke-WebRequest -Method GET -Uri $OctopusBaseURL/spaces -Headers $header).content
             $convert = $listSpaces | ConvertFrom-Json

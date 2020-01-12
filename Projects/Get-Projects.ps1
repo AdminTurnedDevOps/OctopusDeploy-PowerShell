@@ -12,7 +12,6 @@ function Get-Projects {
             $headers = @{ "X-Octopus-ApiKey" = $octopusAPIKey }
 
             $header = @{ "X-Octopus-ApiKey" = $octopusAPIKey | ConvertFrom-SecureString -AsPlainText }
-            $list = @()
 
             $listProjects = $(Invoke-WebRequest -Method GET -Uri $OctopusBaseURL/projects -Headers $header).content
             $convert = $listProjects | ConvertFrom-Json
