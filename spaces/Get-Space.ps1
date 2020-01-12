@@ -1,4 +1,4 @@
-function Get-OctopusSpace {
+function Get-Space {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
         [parameter(Position = 0)]
