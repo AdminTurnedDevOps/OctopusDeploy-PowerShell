@@ -1,0 +1,23 @@
+version: '2.1'
+services:
+  db:
+    image: microsoft/mssql-server-windows-express
+    environment:
+      sa_password: "${SA_PASSWORD}"
+      ACCEPT_EULA: "Y"
+    healthcheck:
+      test: [ "CMD", "sqlcmd", "-U", "sa", "-P", "${SA_PASSWORD}", "-Q", "select 1" ]
+      interval: 10s
+      retries: 10
+  octopus:
+    image: octopusdeploy/octopusdeploy:latest
+    environment:
+      OctopusAdminUsername: "${OCTOPUS_ADMIN_USERNAME}"
+      OctopusAdminPassword: "${OCTOPUS_ADMIN_PASSWORD}"
+      sqlDbConnectionString: "Server=db,1433;Initial Catalog=Octopus;Persist Security Info=False;User ID=sa;Password=${SA_PASSWORD};MultipleActiveResultSets=False;Connection Timeout=30;"
+    ports:
+     - "8081:81"
+    depends_on:
+      db:
+        condition: service_healthy
+    stdin_open: true
