@@ -5,7 +5,7 @@ function New-Lifecycle {
         [string]$OctopusBaseURL,
 
         [parameter(Position = 1, Mandatory = $true)]
-        [string[]]$lifecycleName
+        [string]$lifecycleName
     )
 
     begin {
@@ -22,6 +22,7 @@ function New-Lifecycle {
 
         $header = @{ "X-Octopus-ApiKey" = $octopusAPIKey | ConvertFrom-SecureString -AsPlainText }
 
+        $ErrorActionPreference = “silentlycontinue”
         Invoke-WebRequest $OctopusBaseURL/lifecycles -Method POST -Headers $header -Body ($body | ConvertTo-Json)
     }
 
