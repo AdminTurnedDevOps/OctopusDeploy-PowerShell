@@ -3,6 +3,7 @@ function New-Lifecycle {
     param(
         [parameter(Position = 0, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        [alias('URL')]
         [string]$OctopusBaseURL,
 
         [parameter(Position = 1, Mandatory = $true)]

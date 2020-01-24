@@ -3,6 +3,7 @@ function Get-Projects {
     param(
         [parameter(Position = 0, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        [alias('URL')]
         [string]$OctopusBaseURL
     )
 
