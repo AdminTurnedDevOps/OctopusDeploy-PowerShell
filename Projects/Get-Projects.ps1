@@ -2,6 +2,7 @@ function Get-Projects {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
         [parameter(Position = 0, Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$OctopusBaseURL
     )
 

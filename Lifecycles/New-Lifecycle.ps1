@@ -2,9 +2,11 @@ function New-Lifecycle {
     [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'low')]
     param(
         [parameter(Position = 0, Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$OctopusBaseURL,
 
         [parameter(Position = 1, Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$lifecycleName
     )
 
