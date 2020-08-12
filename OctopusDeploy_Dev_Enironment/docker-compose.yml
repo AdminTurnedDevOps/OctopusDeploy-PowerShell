@@ -1,23 +1,27 @@
 version: '2.1'
 services:
   db:
-    image: microsoft/mssql-server-windows-express
+    image: mcr.microsoft.com/mssql/server
     environment:
-      sa_password: "${SA_PASSWORD}"
+      SA_PASSWORD: ${SA_PASSWORD}
       ACCEPT_EULA: "Y"
+    ports:
+      - 1401:1433
     healthcheck:
-      test: [ "CMD", "sqlcmd", "-U", "sa", "-P", "${SA_PASSWORD}", "-Q", "select 1" ]
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-U", "sa", "-P", "${SA_PASSWORD}", "-Q", "select 1"]
       interval: 10s
       retries: 10
   octopus:
     image: octopusdeploy/octopusdeploy:latest
+    privileged: true
     environment:
-      OctopusAdminUsername: "${OCTOPUS_ADMIN_USERNAME}"
-      OctopusAdminPassword: "${OCTOPUS_ADMIN_PASSWORD}"
-      sqlDbConnectionString: "Server=db,1433;Initial Catalog=Octopus;Persist Security Info=False;User ID=sa;Password=${SA_PASSWORD};MultipleActiveResultSets=False;Connection Timeout=30;"
+      ACCEPT_EULA: "Y"
+      OCTOPUS_SERVER_NODE_NAME: "apitest"
+      DB_CONNECTION_STRING: "Server=db,1433;Database=OctopusDeploy;User=sa;Password=${SA_PASSWORD}"
+      ADMIN_USERNAME: "admin"
+      ADMIN_PASSWORD: "SecreTP@ass"
+      ADMIN_EMAIL: "mlevan1992@test.com"
     ports:
-     - "8081:81"
+      - 8080:8080
     depends_on:
-      db:
-        condition: service_healthy
-    stdin_open: true
+      - db
